@@ -1,6 +1,6 @@
 Apex no-recoil + AimAssist by 
-(PetrosPastor(AimAssist+ExtraTools)/MgSweet(Everything else)
-Version 1.0
+BlackChaplin, PetrosPastor(AimAssist+ExtraTools), MgSweet(Everything else)
+Version 1.1
 (still in development)
 
 sens: (Mouse Sensitivity): This should be the same as your in-game mouse Sensitivity
