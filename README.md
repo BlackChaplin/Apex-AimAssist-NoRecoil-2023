@@ -7,11 +7,11 @@
 An AutoHotKey script minimize recoil with auto weapon detection for Apex Legends and new golden scope and blood hound ultimate aim assist.
 
 Apex no-recoil + AimAssist by 
-(PetrosPastor(AimAssist+ExtraTools)/MgSweet(Everything else)
-Version 1.0
+BlackChaplin, PetrosPastor(AimAssist+ExtraTools), MgSweet(Everything else)
+Version 1.1
 (still in development)
 
-![alt text](https://github.com/PetrosPastor/Apex-AimAssist-NoRecoil-2022/blob/main/ScreenShot/Screenshot1.jpg?raw=true)
+![alt text](https://github.com/BlackChaplin/Apex-AimAssist-NoRecoil-2023/blob/main/ScreenShot/Screenshot1.jpg?raw=true)
 
 sens: (Mouse Sensitivity): This should be the same as your in-game mouse Sensitivity
 
