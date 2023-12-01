@@ -1,8 +1,8 @@
-# Apex-AimAssist-NoRecoil-2022
+# Apex-AimAssist-NoRecoil-2023
 
 (Apparently AutoHotKey is detected and will lead to ban)
 
-(This project is based on another project from github.com/mgsweet)
+(This project is based on another project from github.com/mgsweet and github.com/PetrosPastor)
 
 An AutoHotKey script minimize recoil with auto weapon detection for Apex Legends and new golden scope and blood hound ultimate aim assist.
 
