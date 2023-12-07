@@ -105,24 +105,26 @@ if (noADS_aimassist == "1") {
 Gui, Add, Text, x265 y290 w120 h30 , Resolution:
 Gui, Font, S10, 
 if (resolution == "3840x2160") {
-    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768|1600x900|1680x1050|1920x1080|2560x1440|3840x2160||
+    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768|1600x900|1680x1050|1728x1080|1920x1080|2560x1440|3840x2160||
 } else if (resolution == "2560x1440") {
-    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768|1600x900|1680x1050|1920x1080|2560x1440||3840x2160|
+    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768|1600x900|1680x1050|1728x1080|1920x1080|2560x1440||3840x2160|
+} else if (resolution == "1728x1080") {
+    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768|1600x900|1680x1050|1728x1080||1920x1080|2560x1440|3840x2160|
 } else if (resolution == "1680x1050") {
-    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768|1600x900||1680x1050||1920x1080|2560x1440|3840x2160|
+    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768|1600x900|1680x1050||1728x1080|1920x1080|2560x1440|3840x2160|
 } else if (resolution == "1600x900") {
-    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768|1600x900||1680x1050|1920x1080|2560x1440|3840x2160|
+    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768|1600x900||1680x1050|1728x1080|1920x1080|2560x1440|3840x2160|
 } else if (resolution == "1366x768") {
-    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768||1600x900|1600x900|1920x1080|2560x1440|3840x2160|
+    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768||1600x900|1600x900|1728x1080|1920x1080|2560x1440|3840x2160|
 } else if (resolution == "1280x720") {
-    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720||1366x768|1600x900|1600x900|1920x1080|2560x1440|3840x2160|
+    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720||1366x768|1600x900|1600x900|1728x1080|1920x1080|2560x1440|3840x2160|
 } else {
-    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768|1600x900|1680x1050|1920x1080||2560x1440|3840x2160
+    Gui, Add, DropDownList, x332 y284 vresolution, 1280x720|1366x768|1600x900|1680x1050|1728x1080|1920x1080||2560x1440|3840x2160
 } 
 Gui, Font, S18 Bold, 
 Gui, Add, Button, x155 y315 w190 h40 gbtSave, Save and Run!
 Gui, Font, ,
-Gui, Add, Text, x158 y360 w250 h18 , BlackChaplin
+Gui, Add, Link, x158 y358 w280 h18 , <a href="https://github.com/BlackChaplin/Apex-AimAssist-NoRecoil-2023">BlackChaplin/Apex-AimAssist-NoRecoil-2023</a>
 Gui, Add, Link, x158 y378 w250 h18 , <a href="https://github.com/PetrosPastor/Apex-AimAssist-NoRecoil-2022">PetrosPastor/Apex-AimAssist-NoRecoil-2022</a>
 Gui, Add, Link, x158 y398 w200 h18 , <a href="https://github.com/mgsweet/Apex-NoRecoil-2021">mgsweet/Apex-NoRecoil-2021</a>
 ActiveMonitorInfo(X, Y, Width, Height)
