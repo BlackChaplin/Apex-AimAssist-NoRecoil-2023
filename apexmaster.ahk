@@ -656,10 +656,10 @@ last_bloodhound_ztime := A_TickCount
 return
 
 ~*1::	
-;~*2::
+~*2::
 ~B::
 ~R::
-~XButton1::
+;~XButton1::
     DetectAndSetWeapon()
 return
 
