@@ -38,6 +38,8 @@ global DEVOTION_TURBO_WEAPON_TYPE := "DEVOTION TURBO"
 global VOLT_WEAPON_TYPE := "volt"
 global HAVOC_WEAPON_TYPE := "HAVOC"
 global HAVOC_TURBO_WEAPON_TYPE := "HAVOC TURBO"
+global NEMESIS_WEAPON_TYPE := "NEMESIS"
+global NEMESIS_CHARGED_WEAPON_TYPE := "NEMESIS CHARGED"
 global PROWLER_WEAPON_TYPE := "prowler"
 global HEMLOK_WEAPON_TYPE := "HEMLOK"
 global RE45_WEAPON_TYPE := "RE45"
@@ -92,6 +94,7 @@ global DEVOTION_PIXELS := LoadPixel("devotion")
 global VOLT_PIXELS := LoadPixel("volt")
 global VOLT_GS_PIXELS := LoadPixel("volt_gs")
 global HAVOC_PIXELS := LoadPixel("havoc")
+global NEMESIS_PIXELS := LoadPixel("nemesis")
 ; supply drop weapon
 global G7_PIXELS := LoadPixel("g7")
 global SPITFIRE_PIXELS := LoadPixel("spitfire")
@@ -100,6 +103,8 @@ global ALTERNATOR_GS_PIXELS := LoadPixel("alternator_gs")
 ; Turbocharger
 global HAVOC_TURBOCHARGER_PIXELS := LoadPixel("havoc_turbocharger")
 global DEVOTION_TURBOCHARGER_PIXELS := LoadPixel("devotion_turbocharger")
+; NemesisFullCharge
+global NEMESIS_FULL_CHARGE_PIXELS := LoadPixel("nemesis_full_charge")
 ; Singlemode
 global SINGLE_MODE_PIXELS := LoadPixel("single_mode")
 ;BloodHound
@@ -269,7 +274,8 @@ global TURBODEVOTION_PATTERN := LoadPattern("DevotionTurbo.txt")
 global VOLT_PATTERN := LoadPattern("Volt.txt")
 global HAVOC_PATTERN := LoadPattern("Havoc.txt")
 global TURBOHAVOC_PATTERN := LoadPattern("HavocTurbo.txt")
-global P3030_PATTERN := LoadPattern("3030.txt")
+global NEMESIS_PATTERN = LoadPattern("Nemesis.txt")
+global NEMESIS_CHARGED_PATTERN = LoadPattern("NemesisCharged.txt")
 ; special
 global CAR_PATTERN := LoadPattern("CAR.txt")
 ; heavy weapon pattern
@@ -277,6 +283,7 @@ global FLATLINE_PATTERN := LoadPattern("Flatline.txt")
 global RAMPAGE_PATTERN := LoadPattern("Rampage.txt")
 global RAMPAGEAMP_PATTERN := LoadPattern("RampageAmp.txt")
 global HEMLOK_PATTERN := LoadPattern("Hemlok.txt")
+global P3030_PATTERN := LoadPattern("3030.txt")
 ; supply drop weapon pattern
 global PROWLER_PATTERN := LoadPattern("Prowler.txt")
 global WINGMAN_PATTERN := LoadPattern("Wingman.txt")
@@ -326,6 +333,16 @@ CheckSingleMode()
 {
     target_color := 0xFFFFFF
     PixelGetColor, check_point_color, SINGLE_MODE_PIXELS[1], SINGLE_MODE_PIXELS[2]
+    if (check_point_color == target_color) {
+        return true
+    }
+    return false
+}
+
+IsNemesisFullCharge()
+{
+    target_color := 0xD6BD62
+    PixelGetColor, check_point_color, NEMESIS_FULL_CHARGE_PIXELS[1], NEMESIS_FULL_CHARGE_PIXELS[2]
     if (check_point_color == target_color) {
         return true
     }
@@ -538,8 +555,14 @@ DetectAndSetWeapon()
             current_pattern := TURBOHAVOC_PATTERN
             current_weapon_type := HAVOC_TURBO_WEAPON_TYPE
             }
-        }else
-		{		
+        } else if (CheckWeapon(NEMESIS_PIXELS)) {
+            current_weapon_type := NEMESIS_WEAPON_TYPE
+            current_pattern := NEMESIS_PATTERN
+            if (IsNemesisFullCharge()) {
+                current_weapon_type := NEMESIS_CHARGED_WEAPON_TYPE
+                current_pattern := NEMESIS_CHARGED_PATTERN
+            }
+        } else {		
 			current_weapon_type := TRIPLETAKE_WEAPON_TYPE
             is_single_fire_weapon :=true
 		}
@@ -923,16 +946,16 @@ Sleep 200
         Sleep, 400
     }
 
-    ;if (current_weapon_type == NEMESIS_WEAPON_TYPE || current_weapon_type == NEMESIS_CHARGED_WEAPON_TYPE)
-    ;{
-    ;    if (IsNemesisFullCharge()) {
-    ;        current_weapon_type := NEMESIS_CHARGED_WEAPON_TYPE
-    ;        current_pattern := NEMESIS_CHARGED_PATTERN
-    ;    } else {
-    ;        current_weapon_type := NEMESIS_WEAPON_TYPE
-    ;        current_pattern := NEMESIS_PATTERN
-    ;    }
-    ;}
+    if (current_weapon_type == NEMESIS_WEAPON_TYPE || current_weapon_type == NEMESIS_CHARGED_WEAPON_TYPE)
+    {
+        if (IsNemesisFullCharge()) {
+            current_weapon_type := NEMESIS_CHARGED_WEAPON_TYPE
+            current_pattern := NEMESIS_CHARGED_PATTERN
+        } else {
+            current_weapon_type := NEMESIS_WEAPON_TYPE
+            current_pattern := NEMESIS_PATTERN
+        }
+    }
 
     Loop {
         x := 0
