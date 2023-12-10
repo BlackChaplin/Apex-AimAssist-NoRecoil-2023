@@ -42,6 +42,7 @@ global NEMESIS_WEAPON_TYPE := "NEMESIS"
 global NEMESIS_CHARGED_WEAPON_TYPE := "NEMESIS CHARGED"
 global PROWLER_WEAPON_TYPE := "prowler"
 global HEMLOK_WEAPON_TYPE := "HEMLOK"
+global HEMLOK_SINGLE_WEAPON_TYPE := "HEMLOK SINGLE"
 global RE45_WEAPON_TYPE := "RE45"
 global ALTERNATOR_WEAPON_TYPE := "alternator"
 global P2020_WEAPON_TYPE := "P2020"
@@ -451,7 +452,6 @@ return
 
 DetectAndSetWeapon()
 {	
-    sleep 100
     ; init
     is_single_mode := CheckSingleMode()
     is_single_fire_weapon := false
@@ -518,7 +518,11 @@ DetectAndSetWeapon()
         } else if (CheckWeapon(HEMLOK_PIXELS)) {
             current_weapon_type := HEMLOK_WEAPON_TYPE
             current_pattern := HEMLOK_PATTERN
-            is_single_fire_weapon := true
+            if (is_single_mode) {
+                current_weapon_type := HEMLOK_SINGLE_WEAPON_TYPE
+                current_pattern := HEMLOK_SINGLE_PATTERN
+                is_single_fire_weapon := true
+            }
         } else if (CheckWeapon(RAMPAGE_PIXELS)) {
 			current_weapon_type := RAMPAGE_WEAPON_TYPE
 			current_pattern := RAMPAGE_PATTERN
@@ -659,8 +663,8 @@ DetectAndSetWeapon()
 	  
 }
 
-~E Up::
-    Sleep, 200
+~$*E Up::
+    Sleep, 300
     DetectAndSetWeapon()	
 return
 
@@ -678,11 +682,16 @@ last_bloodhound_ztime := A_TickCount
 }
 return
 
+~$*B::
+    Sleep, 250
+    DetectAndSetWeapon()
+return
+
+;~XButton1::
 ~*1::	
 ~*2::
-~B::
-~R::
-;~XButton1::
+~$*R::
+    Sleep, 100
     DetectAndSetWeapon()
 return
 
@@ -859,79 +868,15 @@ if (!IsMouseShown()&&bloodhZ_aimassist &&is_bloodhound_z)
 	AimAssist()
 return
 
-AutoCycleWeaponChecker()
-{
-Sleep 200
-	check_point_color := 0
-    PixelGetColor, check_weapon1_color, WEAPON_1_PIXELS[1], WEAPON_1_PIXELS[2]
-    PixelGetColor, check_weapon2_color, WEAPON_2_PIXELS[1], WEAPON_2_PIXELS[2]
-    if (check_weapon1_color == LIGHT_WEAPON_COLOR || check_weapon1_color == HEAVY_WEAPON_COLOR 
-        || check_weapon1_color == ENERGY_WEAPON_COLOR || check_weapon1_color == SUPPY_DROP_COLOR || check_weapon1_color == SHOTGUN_WEAPON_COLOR|| check_weapon1_color == SNIPER_WEAPON_COLOR) {
-        check_point_color := check_weapon1_color
-		if(currentWeapon==2)
-		DetectAndSetWeapon()
-    } else if (check_weapon2_color == LIGHT_WEAPON_COLOR || check_weapon2_color == HEAVY_WEAPON_COLOR || check_weapon2_color == ENERGY_WEAPON_COLOR 
-        || check_weapon2_color == SUPPY_DROP_COLOR || check_weapon2_color == SHOTGUN_WEAPON_COLOR|| check_weapon2_color == SNIPER_WEAPON_COLOR) {		
-        check_point_color := check_weapon2_color
-		if(currentWeapon==1)
-		DetectAndSetWeapon()
-    } else {
-        currentWeapon := 3
-    }	
-}
-
-;~$*LButton::
-;    if (IsMouseShown() || current_weapon_type == DEFAULT_WEAPON_TYPE || current_weapon_type == SHOTGUN_WEAPON_TYPE)
-;        return
-;	AutoCycleWeaponChecker()
-;    if (ads_only && !GetKeyState("RButton"))
-;        return
-;
-;    if (is_single_fire_weapon && !auto_fire)
-;        return
-;
-;    Loop {
-;        i := A_Index
-;        if (A_Index > current_pattern.MaxIndex()) {
-;            i := current_pattern.MaxIndex()
-;        }
-;
-;        compensation := StrSplit(current_pattern[i],",")
-;        if (compensation.MaxIndex() < 3) {
-;            return
-;        }
-;        x := compensation[1]
-;        y := compensation[2]
-;        interval := compensation[3]
-;
-;        if (is_single_fire_weapon) {
-;            Click
-;            Random, rand, 1, 20
-;            interval := interval + rand
-;        }
-;
-;        DllCall("mouse_event", uint, 0x01, uint, Round(x * modifier), uint, Round(y * modifier))
-;        Sleep, interval
-;
-;        if (!GetKeyState("LButton","P")) {
-;            DllCall("mouse_event", uint, 4, int, 0, int, 0, uint, 0, int, 0)
-;            break
-;        }
-;    }
-;return
-
 ~$*LButton::
-    if (has_gold_optics && gold_optics && is_gold_optics_weapon && GetKeyState("RButton")) {
-        MoveMouse2Red()
-    }
+    ;if (has_gold_optics && gold_optics && is_gold_optics_weapon && GetKeyState("RButton")) {
+    ;    MoveMouse2Red()
+    ;}
 
     ; Click, Down
 
     if (IsMouseShown() || current_weapon_type == DEFAULT_WEAPON_TYPE || current_weapon_type == SHOTGUN_WEAPON_TYPE || current_weapon_type == SNIPER_WEAPON_TYPE)
         return
-
-    ;if (is_single_mode && !(IsAutoClickNeeded()))
-    ;    return
 
     if (is_single_fire_weapon && !auto_fire)
         return
